@@ -3,6 +3,8 @@ import { Typography, Avatar, Paper, Box, TextField, Button } from '@mui/material
 import { StyledBox, BiographyContainer, AvatarBox } from '../Custom Styles/commonstyles';
 import axios from 'axios';
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 interface AboutMeData {
   name: string;
   biography: string;
@@ -16,7 +18,7 @@ const Home: React.FC = () => {
 
   const fetchAboutMe = async () => {
     try {
-      const response = await axios.get('/api/aboutme');
+      const response = await axios.get(`${API_BASE_URL}/api/aboutme`);
       if (response.data) {
         setAboutMe(response.data);
         setFormData(response.data);
@@ -40,7 +42,7 @@ const Home: React.FC = () => {
 
   const handleSave = async () => {
     try {
-      const response = await axios.put('/api/aboutme', formData);
+      const response = await axios.put(`${API_BASE_URL}/api/aboutme`, formData);
       setAboutMe(response.data);
       setIsEditing(false);
       fetchAboutMe();  // Fetch the updated data
@@ -60,8 +62,8 @@ const Home: React.FC = () => {
       </Typography>
 
       <Paper sx={{ p: 3, mb: 3 }}>
-        <BiographyContainer>
-          <Box>
+        <BiographyContainer sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+          <Box sx={{ flexGrow: 1, pr: 3 }}>
             <Typography variant="h4" gutterBottom>
               About Me
             </Typography>
@@ -99,10 +101,10 @@ const Home: React.FC = () => {
               </Box>
             ) : (
               <Box>
-                {/* <Typography variant="h5" gutterBottom>
+                <Typography variant="h5" gutterBottom>
                   {aboutMe.name}
-                </Typography> */}
-                <Typography>
+                </Typography>
+                <Typography variant="body1" paragraph>
                   {aboutMe.biography}
                 </Typography>
               </Box>
