@@ -29,7 +29,7 @@ import {
 import useMediaQuery from '@mui/material/useMediaQuery';
 import theme from './theme';
 import Recipes from './Navigation Components/Recipes';
-import Travel from './Navigation Components/Travel';
+import Life from './Navigation Components/Life';
 import Projects from './Navigation Components/Projects';
 import Home from './Navigation Components/Home';
 import Resume from './Navigation Components/Resume';
@@ -111,10 +111,10 @@ function App() {
                     <RecipesIcon />
                     {open && <ListItemText primary="Recipes" sx={{ ml: 1 }} />}
                   </ListItemButton>
-                  {/* <ListItemButton component={Link} to="/travel">
+                  <ListItemButton component={Link} to="/life">
                     <TravelIcon />
-                    {open && <ListItemText primary="Travel" sx={{ ml: 1 }} />}
-                  </ListItemButton> */}
+                    {open && <ListItemText primary="Life" sx={{ ml: 1 }} />}
+                  </ListItemButton>
                   <ListItemButton component={Link} to="/projects">
                     <ProjectsIcon />
                     {open && <ListItemText primary="Projects" sx={{ ml: 1 }} />}
@@ -150,7 +150,7 @@ function App() {
           >
             <Routes>
               <Route path="/recipes" element={<Recipes />} />
-              <Route path="/travel" element={<Travel />} />
+              <Route path="/life" element={<Life />} />
               <Route path="/projects" element={<Projects />} />
               <Route path="/resume" element={<Resume />} />
               <Route path="/allisonsblog" element={<Home />} />
@@ -185,8 +185,8 @@ function App() {
               />
               <BottomNavigationAction
                 component={Link}
-                to="/travel"
-                label="Travel"
+                to="/life"
+                label="Life"
                 icon={<TravelIcon />}
               />
               <BottomNavigationAction
