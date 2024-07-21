@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
-  "homepage": "https://AllisonDT.github.io",
+  "homepage": "https://allisondt.github.io",
   "scripts": {
     "dev": "concurrently \"vite\" \"npm:open\" \"ts-node-dev --respawn --transpile-only backend/src/index.ts\"",
     "open": "open http://localhost:5173",
