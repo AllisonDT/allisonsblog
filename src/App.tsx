@@ -73,7 +73,7 @@ function App() {
             <Toolbar>
               <Typography variant="h6" component="div">
                 <Link
-                  to="/allisonsblog"
+                  to="/allisonsblog/"
                   style={{
                     color: 'inherit',
                     textDecoration: 'none',
@@ -107,19 +107,19 @@ function App() {
                 }}
               >
                 <List>
-                  <ListItemButton component={Link} to="/recipes">
+                  <ListItemButton component={Link} to="/allisonsblog/recipes">
                     <RecipesIcon />
                     {open && <ListItemText primary="Recipes" sx={{ ml: 1 }} />}
                   </ListItemButton>
-                  <ListItemButton component={Link} to="/life">
+                  <ListItemButton component={Link} to="/allisonsblog/life">
                     <TravelIcon />
                     {open && <ListItemText primary="Life" sx={{ ml: 1 }} />}
                   </ListItemButton>
-                  <ListItemButton component={Link} to="/projects">
+                  <ListItemButton component={Link} to="/allisonsblog/projects">
                     <ProjectsIcon />
                     {open && <ListItemText primary="Projects" sx={{ ml: 1 }} />}
                   </ListItemButton>
-                  <ListItemButton component={Link} to="/resume">
+                  <ListItemButton component={Link} to="/allisonsblog/resume">
                     <ResumeIcon />
                     {open && <ListItemText primary="Resume" sx={{ ml: 1 }} />}
                   </ListItemButton>
@@ -149,11 +149,11 @@ function App() {
             sx={{ flexGrow: 1, p: 3, paddingTop: 10 }}
           >
             <Routes>
-              <Route path="/recipes" element={<Recipes />} />
-              <Route path="/life" element={<Life />} />
-              <Route path="/projects" element={<Projects />} />
-              <Route path="/resume" element={<Resume />} />
-              <Route path="/allisonsblog" element={<Home />} />
+              <Route path="/allisonsblog/recipes" element={<Recipes />} />
+              <Route path="/allisonsblog/life" element={<Life />} />
+              <Route path="/allisonsblog/projects" element={<Projects />} />
+              <Route path="/allisonsblog/resume" element={<Resume />} />
+              <Route path="/allisonsblog/" element={<Home />} />
               <Route path="*" element={<PageUnavailable />} />
             </Routes>
           </Container>
@@ -173,31 +173,31 @@ function App() {
             >
               <BottomNavigationAction
                 component={Link}
-                to="/allisonsblog"
+                to="/allisonsblog/"
                 label="Home"
                 icon={<HomeIcon />}
               />
               <BottomNavigationAction
                 component={Link}
-                to="/recipes"
+                to="/allisonsblog/recipes"
                 label="Recipes"
                 icon={<RecipesIcon />}
               />
               <BottomNavigationAction
                 component={Link}
-                to="/life"
+                to="/allisonsblog/life"
                 label="Life"
                 icon={<TravelIcon />}
               />
               <BottomNavigationAction
                 component={Link}
-                to="/projects"
+                to="/allisonsblog/projects"
                 label="Projects"
                 icon={<ProjectsIcon />}
               />
               <BottomNavigationAction
                 component={Link}
-                to="/resume"
+                to="/allisonsblog/resume"
                 label="Resume"
                 icon={<ResumeIcon />}
               />

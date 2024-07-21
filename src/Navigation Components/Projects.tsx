@@ -2,7 +2,6 @@ import React from 'react';
 import { Typography, Grid, Link, Paper, Box, Chip } from '@mui/material';
 import { styled } from '@mui/system';
 import { StyledBox } from '../Custom Styles/commonstyles';
-import { AppBlocking } from '@mui/icons-material';
 
 const StyledListItem = styled(Paper)(({ theme }) => ({
   marginBottom: theme.spacing(2),
