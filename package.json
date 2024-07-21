@@ -3,15 +3,16 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
-  "homepage": "https://AllisonDT.github.io/allisonsblog",
+  "homepage": "https://AllisonDT.github.io",
   "scripts": {
     "dev": "concurrently \"vite\" \"npm:open\" \"ts-node-dev --respawn --transpile-only backend/src/index.ts\"",
     "open": "open http://localhost:5173",
     "build": "vite build",
     "preview": "vite preview",
     "start": "node backend/dist/index.js",
-    "predeploy": "vite build",
-    "deploy": "gh-pages -d dist"
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist",
+    "clean": "rm -rf dist"
   },
   "dependencies": {
     "@emotion/react": "^11.13.0",
