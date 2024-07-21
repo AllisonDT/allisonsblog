@@ -47,7 +47,7 @@ function App() {
           <AppBar position="fixed" color="primary">
             <Toolbar>
               <Typography variant="h6" component="div">
-                <Link to="/" style={{ color: 'inherit', textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
+                <Link to="/allisonsblog" style={{ color: 'inherit', textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
                   <HomeIcon sx={{ mr: 1 }} />
                   {!isMobile && 'Home'}
                 </Link>
@@ -58,11 +58,11 @@ function App() {
             <Box component="nav" sx={{ width: open ? 240 : 60, flexShrink: 0, transition: 'width 0.3s' }}>
               <Paper sx={{ height: '100vh', paddingTop: 8, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', position: 'relative' }}>
                 <List>
-                  {/* <ListItemButton component={Link} to="/recipes">
+                  <ListItemButton component={Link} to="/recipes">
                     <RecipesIcon />
                     {open && <ListItemText primary="Recipes" sx={{ ml: 1 }} />}
                   </ListItemButton>
-                  <ListItemButton component={Link} to="/travel">
+                  {/* <ListItemButton component={Link} to="/travel">
                     <TravelIcon />
                     {open && <ListItemText primary="Travel" sx={{ ml: 1 }} />}
                   </ListItemButton> */}
@@ -99,7 +99,7 @@ function App() {
               <Route path="/travel" element={<Travel />} />
               <Route path="/projects" element={<Projects />} />
               <Route path="/resume" element={<Resume />} />
-              <Route path="/" element={<Home />} />
+              <Route path="/allisonsblog" element={<Home />} />
               <Route path="*" element={<PageUnavailable />} />
             </Routes>
           </Container>
@@ -112,7 +112,7 @@ function App() {
               showLabels
               sx={{ position: 'fixed', bottom: 0, width: '100%', ...compactNavStyle }}
             >
-              <BottomNavigationAction component={Link} to="/" label="Home" icon={<HomeIcon />} />
+              <BottomNavigationAction component={Link} to="/allisonsblog" label="Home" icon={<HomeIcon />} />
               <BottomNavigationAction component={Link} to="/recipes" label="Recipes" icon={<RecipesIcon />} />
               <BottomNavigationAction component={Link} to="/travel" label="Travel" icon={<TravelIcon />} />
               <BottomNavigationAction component={Link} to="/projects" label="Projects" icon={<ProjectsIcon />} />
