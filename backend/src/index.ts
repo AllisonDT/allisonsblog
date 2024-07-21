@@ -1,7 +1,9 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-require('dotenv').config(); // Load environment variables
+const dotenv = require('dotenv');
+
+dotenv.config(); // Load environment variables
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -19,29 +21,54 @@ mongoose.connect(process.env.MONGODB_URI, {
   console.error('MongoDB connection error:', error);
 });
 
-// // Define schemas and models
-// const skillSchema = new mongoose.Schema({ name: String });
-// const Skill = mongoose.model('Skill', skillSchema);
+// Define the AboutMe schema and model
+const aboutMeSchema = new mongoose.Schema({
+  name: String,
+  biography: String,
+  avatarUrl: String
+});
 
-// // API endpoints
-// app.get('/api/skills', async (req, res) => {
-//   try {
-//     const skills = await Skill.find();
-//     res.json(skills);
-//   } catch (error) {
-//     res.status(500).json({ message: error.message });
-//   }
-// });
+const AboutMe = mongoose.model('AboutMe', aboutMeSchema);
 
-// app.post('/api/skills', async (req, res) => {
-//   const newSkill = new Skill(req.body);
-//   try {
-//     await newSkill.save();
-//     res.status(201).json(newSkill);
-//   } catch (error) {
-//     res.status(400).json({ message: error.message });
-//   }
-// });
+// Define a route to get AboutMe data
+app.get('/api/aboutme', async (req: any, res: any) => {
+  try {
+    const aboutMeData = await AboutMe.findOne();
+    res.json(aboutMeData);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching about me data', error });
+  }
+});
+
+// Define a route to insert AboutMe data
+app.post('/api/aboutme', async (req: any, res: any) => {
+  const { name, biography, avatarUrl } = req.body;
+  try {
+    const result = await AboutMe.updateOne(
+      {},
+      { $set: { name, biography, avatarUrl } },
+      { upsert: true }
+    );
+    res.json({ message: 'Data inserted/updated successfully', result });
+  } catch (error) {
+    res.status(500).json({ message: 'Error inserting/updating data', error });
+  }
+});
+
+// Define a route to update AboutMe data
+app.put('/api/aboutme', async (req: any, res: any) => {
+  const { name, biography, avatarUrl } = req.body;
+  try {
+    const result = await AboutMe.updateOne(
+      {},
+      { $set: { name, biography, avatarUrl } },
+      { upsert: true }
+    );
+    res.json({ message: 'Data updated successfully', result });
+  } catch (error) {
+    res.status(500).json({ message: 'Error updating data', error });
+  }
+});
 
 // Start server
 app.listen(port, () => {

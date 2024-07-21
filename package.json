@@ -7,7 +7,8 @@
   "scripts": {
     "dev": "concurrently \"vite\" \"npm:open\" \"ts-node-dev --respawn --transpile-only backend/src/index.ts\"",
     "open": "open http://localhost:5173",
-    "build": "vite build",
+    "build": "npm run backend-build && vite build",
+    "backend-build": "tsc --project backend/tsconfig.json",
     "preview": "vite preview",
     "start": "node backend/dist/index.js",
     "predeploy": "npm run build",
@@ -20,6 +21,7 @@
     "@mui/icons-material": "^5.16.4",
     "@mui/material": "^5.16.4",
     "@vitejs/plugin-react": "^4.3.1",
+    "axios": "^1.7.2",
     "bootstrap": "^5.3.3",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
