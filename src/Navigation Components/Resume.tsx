@@ -6,8 +6,8 @@ import { StyledBox } from '../Custom Styles/commonstyles';
 const Resume = () => {
   return (
     <StyledBox>
-      <Typography variant="h4" align="center" gutterBottom>
-        Allison Turner's Resume
+      <Typography variant="h2" align="center" gutterBottom>
+        Resume
       </Typography>
       
       <Paper sx={{ p: 3, mb: 3 }}>
