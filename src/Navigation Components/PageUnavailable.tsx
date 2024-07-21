@@ -23,7 +23,7 @@ const PageUnavailable: React.FC = () => {
       </Typography>
       <Button
         component={Link}
-        to="/"
+        to="allisonsblog"
         variant="contained"
         color="primary"
         sx={{ mt: 2 }}
