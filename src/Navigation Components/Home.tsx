@@ -55,6 +55,9 @@ const Home: React.FC = () => {
     return <Typography>Loading...</Typography>;
   }
 
+  // Update the avatar URL to use the image from the public folder
+  const avatarUrl = formData.avatarUrl || '/headshot.jpg'; // Default to /headshot.jpg if no URL is provided
+
   return (
     <StyledBox>
       <Typography variant="h2" align="center" gutterBottom>
@@ -69,14 +72,14 @@ const Home: React.FC = () => {
             </Typography>
             {isEditing ? (
               <Box>
-                <TextField
+                {/* <TextField
                   fullWidth
                   label="Name"
                   name="name"
                   value={formData.name}
                   onChange={handleInputChange}
                   margin="normal"
-                />
+                /> */}
                 <TextField
                   fullWidth
                   label="Biography"
@@ -101,19 +104,19 @@ const Home: React.FC = () => {
               </Box>
             ) : (
               <Box>
-                <Typography variant="h5" gutterBottom>
+                {/* <Typography variant="h5" gutterBottom>
                   {aboutMe.name}
-                </Typography>
+                </Typography> */}
                 <Typography variant="body1" paragraph>
                   {aboutMe.biography}
                 </Typography>
               </Box>
             )}
           </Box>
-          <AvatarBox sx={{ flexShrink: 0 }}>
+          <AvatarBox sx={{ flexShrink: 0 , paddingTop: 6}}>
             <Avatar
               alt={aboutMe.name}
-              src={aboutMe.avatarUrl}
+              src={avatarUrl}
               sx={{ width: 200, height: 200 }}
             />
           </AvatarBox>
