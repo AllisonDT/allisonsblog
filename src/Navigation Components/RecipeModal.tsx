@@ -1,14 +1,6 @@
-// RecipeModal.tsx
 import React from 'react';
 import { Modal, Box, Typography, Button, CardMedia } from '@mui/material';
-
-interface Recipe {
-  _id?: string;
-  title: string;
-  ingredients: string[];
-  instructions: string;
-  imageUrl: string;
-}
+import { Recipe } from '../types';  // Import the Recipe interface
 
 interface RecipeModalProps {
   recipe: Recipe | null;
@@ -39,7 +31,7 @@ const RecipeModal: React.FC<RecipeModalProps> = ({ recipe, open, handleClose }) 
           {recipe.title}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          Ingredients: {recipe.ingredients.join(', ')}
+          Ingredients: {recipe.ingredients.map(ing => `${ing.name} (${ing.quantity})`).join(', ')}
         </Typography>
         <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
           Instructions: {recipe.instructions}

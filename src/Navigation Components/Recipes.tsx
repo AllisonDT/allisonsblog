@@ -1,4 +1,3 @@
-// Recipes.tsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import {
@@ -16,23 +15,16 @@ import {
 } from '@mui/material';
 import { StyledBox } from '../Custom Styles/commonstyles';
 import RecipeModal from './RecipeModal';  // Import the new RecipeModal component
+import { Recipe } from '../types';  // Import the Recipe interface
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 console.log(API_BASE_URL);
-
-interface Recipe {
-  _id?: string;
-  title: string;
-  ingredients: string[];
-  instructions: string;
-  imageUrl: string;
-}
 
 const Recipes: React.FC = () => {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [newRecipe, setNewRecipe] = useState<Recipe>({
     title: '',
-    ingredients: [],
+    ingredients: [{ name: '', quantity: '' }],
     instructions: '',
     imageUrl: '',
   });
@@ -62,27 +54,40 @@ const Recipes: React.FC = () => {
     setNewRecipe((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleIngredientsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const ingredientsArray = e.target.value
-      .split(',')
-      .map((ingredient) => ingredient.trim());
-    setNewRecipe((prev) => ({ ...prev, ingredients: ingredientsArray }));
+  const handleIngredientChange = (index: number, field: string, value: string) => {
+    const updatedIngredients = [...newRecipe.ingredients];
+    updatedIngredients[index] = { ...updatedIngredients[index], [field]: value };
+    setNewRecipe((prev) => ({ ...prev, ingredients: updatedIngredients }));
+  };
+
+  const addIngredient = () => {
+    setNewRecipe((prev) => ({
+      ...prev,
+      ingredients: [...prev.ingredients, { name: '', quantity: '' }],
+    }));
+  };
+
+  const removeIngredient = (index: number) => {
+    const updatedIngredients = newRecipe.ingredients.filter((_, i) => i !== index);
+    setNewRecipe((prev) => ({ ...prev, ingredients: updatedIngredients }));
   };
 
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log('Submitting new recipe:', newRecipe);
     try {
-      await axios.post(`${API_BASE_URL}/api/recipes`, newRecipe);
+      const response = await axios.post(`${API_BASE_URL}/api/recipes`, newRecipe);
+      console.log('Recipe added:', response.data);
       fetchRecipes(); // Refresh the list of recipes
       setNewRecipe({
         title: '',
-        ingredients: [],
+        ingredients: [{ name: '', quantity: '' }],
         instructions: '',
         imageUrl: '',
       }); // Reset form
       setOpen(false); // Close modal
     } catch (error) {
-      console.error('Error adding recipe:', error);
+      console.error('Error adding recipe:', error.response ? error.response.data : error.message);
     }
   };
 
@@ -142,14 +147,28 @@ const Recipes: React.FC = () => {
               onChange={handleInputChange}
               required
             />
-            <TextField
-              fullWidth
-              label="Ingredients (comma-separated)"
-              name="ingredients"
-              value={newRecipe.ingredients.join(', ')}
-              onChange={handleIngredientsChange}
-              required
-            />
+            {newRecipe.ingredients.map((ingredient, index) => (
+              <Box key={index} sx={{ display: 'flex', gap: 1 }}>
+                <TextField
+                  label="Ingredient Name"
+                  value={ingredient.name}
+                  onChange={(e) => handleIngredientChange(index, 'name', e.target.value)}
+                  required
+                />
+                <TextField
+                  label="Quantity"
+                  value={ingredient.quantity}
+                  onChange={(e) => handleIngredientChange(index, 'quantity', e.target.value)}
+                  required
+                />
+                <Button variant="contained" color="secondary" onClick={() => removeIngredient(index)}>
+                  Remove
+                </Button>
+              </Box>
+            ))}
+            <Button variant="contained" color="primary" onClick={addIngredient}>
+              Add Ingredient
+            </Button>
             <TextField
               fullWidth
               label="Instructions"
@@ -185,7 +204,7 @@ const Recipes: React.FC = () => {
                       {recipe.title}
                     </Typography>
                     <Typography variant="body2" color="text.secondary" noWrap>
-                      Ingredients: {recipe.ingredients.join(', ')}
+                      Ingredients: {recipe.ingredients.map(ing => `${ing.name} (${ing.quantity})`).join(', ')}
                     </Typography>
                     <Typography variant="body2" color="text.secondary" noWrap>
                       Instructions: {recipe.instructions.length > 100 ? recipe.instructions.substring(0, 100) + '...' : recipe.instructions}
