@@ -8,14 +8,16 @@ export const StyledBox = styled(Box)(({ theme }: { theme: Theme }) => ({
   borderRadius: theme.shape.borderRadius,
 }));
 
-export const BiographyContainer = styled(Container)(({ theme }: { theme: Theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  marginBottom: theme.spacing(6),
-  [theme.breakpoints.down('md')]: {
-    flexDirection: 'column',
-  },
-}));
+export const BiographyContainer = styled(Container)(
+  ({ theme }: { theme: Theme }) => ({
+    display: 'flex',
+    alignItems: 'center',
+    marginBottom: theme.spacing(6),
+    [theme.breakpoints.down('md')]: {
+      flexDirection: 'column',
+    },
+  })
+);
 
 export const AvatarBox = styled(Box)(({ theme }: { theme: Theme }) => ({
   marginLeft: theme.spacing(4),

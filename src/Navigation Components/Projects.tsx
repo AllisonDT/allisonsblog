@@ -29,29 +29,32 @@ const ImageContainer = styled(Box)(({ theme }) => ({
 }));
 
 const projects = [
-  { 
-    name: 'Flavor Fusion: Smart Spice Maker', 
+  {
+    name: 'Flavor Fusion: Smart Spice Maker',
     url: 'https://github.com/AllisonDT/Flavor-Fusion',
-    description: 'A smart spice maker that stores, mixes, and dispenses spices using a mobile app.',
+    description:
+      'A smart spice maker that stores, mixes, and dispenses spices using a mobile app.',
     image: '/images/flavor-fusion.png',
     techStack: ['Swift', 'Xcode'],
   },
-  { 
-    name: 'iPhone Music Practice App', 
-    url: 'https://gitlab.com/musiccapstone/music-capstone', 
-    description: 'An iPhone app to help musicians practice with a metronome, tuner, and recorder.',
+  {
+    name: 'iPhone Music Practice App',
+    url: 'https://gitlab.com/musiccapstone/music-capstone',
+    description:
+      'An iPhone app to help musicians practice with a metronome, tuner, and recorder.',
     image: '/images/music-practice-app.png',
     techStack: ['Swift', 'Xcode'],
   },
-  { 
-    name: 'Virtual Reality Game', 
+  {
+    name: 'Virtual Reality Game',
     url: '/page-unavailable',
-    description: 'A VR game using Unity and the Oculus Integration SDK to run on the Oculus Quest.',
+    description:
+      'A VR game using Unity and the Oculus Integration SDK to run on the Oculus Quest.',
     image: '/images/vr-game.png',
     techStack: ['Unity', 'C#'],
   },
-  { 
-    name: "Allison's Life: A Personal Web App", 
+  {
+    name: "Allison's Life: A Personal Web App",
     url: 'https://github.com/AllisonDT/allisonsblog',
     description: 'A personal web app built using Vite and React.',
     image: '/images/allisons-life.png',
@@ -70,7 +73,12 @@ const Projects: React.FC = () => {
           <Grid item xs={12} sm={6} key={index}>
             <StyledListItem>
               <Typography variant="h6" align="center" gutterBottom>
-                <Link href={project.url} target={project.url.startsWith('http') ? '_blank' : '_self'} rel="noopener noreferrer" underline="hover">
+                <Link
+                  href={project.url}
+                  target={project.url.startsWith('http') ? '_blank' : '_self'}
+                  rel="noopener noreferrer"
+                  underline="hover"
+                >
                   {project.name}
                 </Link>
               </Typography>
@@ -79,7 +87,11 @@ const Projects: React.FC = () => {
               </Typography>
               <Box>
                 {project.techStack.map((tech, techIndex) => (
-                  <Chip key={techIndex} label={tech} style={{ margin: '2px' }} />
+                  <Chip
+                    key={techIndex}
+                    label={tech}
+                    style={{ margin: '2px' }}
+                  />
                 ))}
               </Box>
             </StyledListItem>

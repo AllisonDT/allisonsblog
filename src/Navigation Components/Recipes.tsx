@@ -1,7 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Typography, TextField, Button, Paper, Box, Avatar } from '@mui/material';
-import { StyledBox, BiographyContainer, AvatarBox } from '../Custom Styles/commonstyles';
+import {
+  Typography,
+  TextField,
+  Button,
+  Paper,
+  Box,
+  Avatar,
+} from '@mui/material';
+import {
+  StyledBox,
+  BiographyContainer,
+  AvatarBox,
+} from '../Custom Styles/commonstyles';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 console.log(API_BASE_URL);
@@ -36,13 +47,17 @@ const Recipes: React.FC = () => {
     }
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     setNewRecipe((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleIngredientsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const ingredientsArray = e.target.value.split(',').map((ingredient) => ingredient.trim());
+    const ingredientsArray = e.target.value
+      .split(',')
+      .map((ingredient) => ingredient.trim());
     setNewRecipe((prev) => ({ ...prev, ingredients: ingredientsArray }));
   };
 
@@ -51,7 +66,12 @@ const Recipes: React.FC = () => {
     try {
       await axios.post(`${API_BASE_URL}/api/recipes`, newRecipe);
       fetchRecipes(); // Refresh the list of recipes
-      setNewRecipe({ title: '', ingredients: [], instructions: '', imageUrl: '' }); // Reset form
+      setNewRecipe({
+        title: '',
+        ingredients: [],
+        instructions: '',
+        imageUrl: '',
+      }); // Reset form
     } catch (error) {
       console.error('Error adding recipe:', error);
     }
@@ -67,7 +87,11 @@ const Recipes: React.FC = () => {
         <Typography variant="h4" gutterBottom>
           Add a New Recipe
         </Typography>
-        <Box component="form" onSubmit={handleFormSubmit} sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+        <Box
+          component="form"
+          onSubmit={handleFormSubmit}
+          sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}
+        >
           <TextField
             fullWidth
             label="Title"
@@ -114,8 +138,15 @@ const Recipes: React.FC = () => {
         {recipes.map((recipe) => (
           <Paper key={recipe._id} sx={{ p: 2, mb: 2 }}>
             <Typography variant="h5">{recipe.title}</Typography>
-            <Typography variant="body1">Ingredients: {recipe.ingredients.join(', ')}</Typography>
-            <Typography variant="body1">Instructions: {recipe.instructions}</Typography>
+            <Typography variant="body1">
+              Ingredients:{' '}
+              {recipe.ingredients
+                .map((ingredient) => ingredient?.name)
+                .join(', ')}
+            </Typography>
+            <Typography variant="body1">
+              Instructions: {recipe.instructions}
+            </Typography>
             {recipe.imageUrl && (
               <Avatar
                 variant="square"

@@ -1,6 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { Typography, Avatar, Paper, Box, TextField, Button } from '@mui/material';
-import { StyledBox, BiographyContainer, AvatarBox } from '../Custom Styles/commonstyles';
+import {
+  Typography,
+  Avatar,
+  Paper,
+  Box,
+  TextField,
+  Button,
+} from '@mui/material';
+import {
+  StyledBox,
+  BiographyContainer,
+  AvatarBox,
+} from '../Custom Styles/commonstyles';
 import axios from 'axios';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
@@ -14,7 +25,11 @@ interface AboutMeData {
 const Home: React.FC = () => {
   const [aboutMe, setAboutMe] = useState<AboutMeData | null>(null);
   const [isEditing, setIsEditing] = useState(false);
-  const [formData, setFormData] = useState<AboutMeData>({ name: '', biography: '', avatarUrl: '' });
+  const [formData, setFormData] = useState<AboutMeData>({
+    name: '',
+    biography: '',
+    avatarUrl: '',
+  });
 
   const fetchAboutMe = async () => {
     try {
@@ -45,7 +60,7 @@ const Home: React.FC = () => {
       const response = await axios.put(`${API_BASE_URL}/api/aboutme`, formData);
       setAboutMe(response.data);
       setIsEditing(false);
-      fetchAboutMe();  // Fetch the updated data
+      fetchAboutMe(); // Fetch the updated data
     } catch (error) {
       console.error('Error updating about me data:', error);
     }
@@ -65,7 +80,13 @@ const Home: React.FC = () => {
       </Typography>
 
       <Paper sx={{ p: 3, mb: 3 }}>
-        <BiographyContainer sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+        <BiographyContainer
+          sx={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+          }}
+        >
           <Box sx={{ flexGrow: 1, pr: 3 }}>
             <Typography variant="h4" gutterBottom>
               About Me
@@ -98,7 +119,12 @@ const Home: React.FC = () => {
                   onChange={handleInputChange}
                   margin="normal"
                 />
-                <Button variant="contained" color="primary" onClick={handleSave} sx={{ mt: 2 }}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleSave}
+                  sx={{ mt: 2 }}
+                >
                   Save
                 </Button>
               </Box>
@@ -113,7 +139,7 @@ const Home: React.FC = () => {
               </Box>
             )}
           </Box>
-          <AvatarBox sx={{ flexShrink: 0 , paddingTop: 6}}>
+          <AvatarBox sx={{ flexShrink: 0, paddingTop: 6 }}>
             <Avatar
               alt={aboutMe.name}
               src={avatarUrl}
@@ -122,7 +148,12 @@ const Home: React.FC = () => {
           </AvatarBox>
         </BiographyContainer>
         {!isEditing && (
-          <Button variant="outlined" color="primary" onClick={() => setIsEditing(true)} sx={{ mt: 2 }}>
+          <Button
+            variant="outlined"
+            color="primary"
+            onClick={() => setIsEditing(true)}
+            sx={{ mt: 2 }}
+          >
             Edit
           </Button>
         )}

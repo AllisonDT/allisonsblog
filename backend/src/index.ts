@@ -12,20 +12,23 @@ app.use(cors());
 app.use(express.json());
 
 // Connect to MongoDB
-mongoose.connect(process.env.MONGODB_URL, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-}).then(() => {
-  console.log('Connected to MongoDB');
-}).catch((error: any) => {
-  console.error('MongoDB connection error:', error);
-});
+mongoose
+  .connect(process.env.MONGODB_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    console.log('Connected to MongoDB');
+  })
+  .catch((error: any) => {
+    console.error('MongoDB connection error:', error);
+  });
 
 // Schemas
 const aboutMeSchema = new mongoose.Schema({
   name: String,
   biography: String,
-  avatarUrl: String
+  avatarUrl: String,
 });
 
 const AboutMe = mongoose.model('AboutMe', aboutMeSchema);
@@ -35,7 +38,7 @@ const recipeSchema = new mongoose.Schema({
   ingredients: [{ name: String, quantity: String }],
   instructions: { type: String, required: true },
   imageUrl: String,
-  createdAt: { type: Date, default: Date.now }
+  createdAt: { type: Date, default: Date.now },
 });
 
 const Recipe = mongoose.model('Recipe', recipeSchema);
@@ -104,7 +107,12 @@ app.get('/api/recipes/:id', async (req: any, res: any) => {
 app.post('/api/recipes', async (req: any, res: any) => {
   const { title, ingredients, instructions, imageUrl } = req.body;
   try {
-    const newRecipe = new Recipe({ title, ingredients, instructions, imageUrl });
+    const newRecipe = new Recipe({
+      title,
+      ingredients,
+      instructions,
+      imageUrl,
+    });
     await newRecipe.save();
     res.status(201).json({ message: 'Recipe created successfully', newRecipe });
   } catch (error) {

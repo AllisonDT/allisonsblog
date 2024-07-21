@@ -23,15 +23,20 @@ Make sure you have the following installed on your development machine:
    git clone https://github.com/AllisonDT/allisonsblog.git
    cd allisonsblog
 
+   ```
+
 2. **Install dependencies:**
 
    ```bash
    npm install
 
-2. **Run the development server:**
+   ```
+
+3. **Run the development server:**
 
    ```bash
    npm run dev
+   ```
 
 ## Available Scripts
 
