@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "concurrently \"vite\" \"npm:open\" \"ts-node-dev --respawn --transpile-only backend/src/index.ts\"",
     "open": "open http://localhost:5173",
-    "build": "npm run backend-build && vite build",
+    "build": "npm install --legacy-peer-deps && npm run backend-build && vite build",
     "backend-build": "tsc --project backend/tsconfig.json",
     "preview": "vite preview",
     "start": "node backend/dist/index.js",
