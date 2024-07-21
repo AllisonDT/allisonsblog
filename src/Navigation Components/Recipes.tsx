@@ -86,7 +86,7 @@ const Recipes: React.FC = () => {
         imageUrl: '',
       }); // Reset form
       setOpen(false); // Close modal
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error adding recipe:', error.response ? error.response.data : error.message);
     }
   };

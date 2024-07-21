@@ -25,6 +25,7 @@ import {
   ChevronLeft as ChevronLeftIcon,
   ChevronRight as ChevronRightIcon,
   Description as ResumeIcon,
+  Book as BookIcon,
 } from '@mui/icons-material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import theme from './theme';
@@ -34,6 +35,8 @@ import Projects from './Navigation Components/Projects';
 import Home from './Navigation Components/Home';
 import Resume from './Navigation Components/Resume';
 import PageUnavailable from './Navigation Components/PageUnavailable';
+import Countdown from './Navigation Components/Fun Components/Countdown';
+import BookReviews from './Navigation Components/BookReviews';
 
 const compactNavStyle = {
   '& .MuiBottomNavigationAction-root': {
@@ -115,6 +118,10 @@ function App() {
                     <TravelIcon />
                     {open && <ListItemText primary="Life" sx={{ ml: 1 }} />}
                   </ListItemButton>
+                  <ListItemButton component={Link} to="/allisonsblog/bookReviews">
+                    <BookIcon />
+                    {open && <ListItemText primary="Book Reviews" sx={{ ml: 1 }} />}
+                  </ListItemButton>
                   <ListItemButton component={Link} to="/allisonsblog/projects">
                     <ProjectsIcon />
                     {open && <ListItemText primary="Projects" sx={{ ml: 1 }} />}
@@ -125,6 +132,18 @@ function App() {
                   </ListItemButton>
                 </List>
                 <Divider />
+                {open && (
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      pb: 2,
+                    }}
+                  >
+                    <Countdown targetDate="2024-12-13T00:00:00" /> {/* Add the Countdown component */}
+                  </Box>
+                )}
                 <Box
                   sx={{
                     display: 'flex',
@@ -151,6 +170,7 @@ function App() {
             <Routes>
               <Route path="/allisonsblog/recipes" element={<Recipes />} />
               <Route path="/allisonsblog/life" element={<Life />} />
+              <Route path="/allisonsblog/bookReviews" element={<BookReviews />} />
               <Route path="/allisonsblog/projects" element={<Projects />} />
               <Route path="/allisonsblog/resume" element={<Resume />} />
               <Route path="/allisonsblog/" element={<Home />} />
@@ -188,6 +208,12 @@ function App() {
                 to="/allisonsblog/life"
                 label="Life"
                 icon={<TravelIcon />}
+              />
+              <BottomNavigationAction
+                component={Link}
+                to="/allisonsblog/bookReviews"
+                label="Book Reviews"
+                icon={<BookIcon />}
               />
               <BottomNavigationAction
                 component={Link}
