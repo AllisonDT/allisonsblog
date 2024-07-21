@@ -1,4 +1,4 @@
-# React + Vite + TypeScript Blog
+# Allisons React + Vite + TypeScript Blog
 
 This project is a simple blog built with React, Vite, and TypeScript. Follow the instructions below to set up the project for development.
 
