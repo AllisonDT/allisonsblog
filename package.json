@@ -2,6 +2,7 @@
   "name": "my-fullstack-app",
   "version": "1.0.0",
   "main": "index.js",
+  "author": "Allison Turner",
   "license": "MIT",
   "homepage": "https://allisondt.github.io/allisonsblog/",
   "scripts": {
@@ -21,6 +22,7 @@
     "@emotion/styled": "^11.13.0",
     "@mui/icons-material": "^5.16.4",
     "@mui/material": "^5.16.4",
+    "@react-spring/web": "^9.7.4",
     "@vitejs/plugin-react": "^4.3.1",
     "axios": "^1.7.2",
     "bootstrap": "^5.3.3",
@@ -54,14 +56,14 @@
     "node": "20.x"
   },
   "husky": {
-  "hooks": {
-    "pre-commit": "lint-staged"
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,json,css,scss,md}": [
+      "prettier --write",
+      "git add"
+    ]
   }
-},
-"lint-staged": {
-  "*.{js,jsx,ts,tsx,json,css,scss,md}": [
-    "prettier --write",
-    "git add"
-  ]
-}
 }

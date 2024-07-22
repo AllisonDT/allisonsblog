@@ -43,7 +43,15 @@ const recipeSchema = new mongoose.Schema({
 
 const Recipe = mongoose.model('Recipe', recipeSchema);
 
-// Define a route to get AboutMe data
+const bookSchema = new mongoose.Schema({
+  title: { type: String, required: true },
+  author: { type: String, required: true },
+  createdAt: { type: Date, default: Date.now },
+});
+
+const Book = mongoose.model('Book', bookSchema);
+
+// AboutMe Routes
 app.get('/api/aboutme', async (req: any, res: any) => {
   try {
     const aboutMeData = await AboutMe.findOne();
@@ -53,7 +61,6 @@ app.get('/api/aboutme', async (req: any, res: any) => {
   }
 });
 
-// Define a route to insert AboutMe data
 app.post('/api/aboutme', async (req: any, res: any) => {
   const { name, biography, avatarUrl } = req.body;
   try {
@@ -68,7 +75,6 @@ app.post('/api/aboutme', async (req: any, res: any) => {
   }
 });
 
-// Define a route to update AboutMe data
 app.put('/api/aboutme', async (req: any, res: any) => {
   const { name, biography, avatarUrl } = req.body;
   try {
@@ -83,7 +89,7 @@ app.put('/api/aboutme', async (req: any, res: any) => {
   }
 });
 
-// Get all recipes
+// Recipe Routes
 app.get('/api/recipes', async (req: any, res: any) => {
   try {
     const recipes = await Recipe.find();
@@ -93,7 +99,6 @@ app.get('/api/recipes', async (req: any, res: any) => {
   }
 });
 
-// Get a single recipe by ID
 app.get('/api/recipes/:id', async (req: any, res: any) => {
   try {
     const recipe = await Recipe.findById(req.params.id);
@@ -103,7 +108,6 @@ app.get('/api/recipes/:id', async (req: any, res: any) => {
   }
 });
 
-// Add a new recipe
 app.post('/api/recipes', async (req: any, res: any) => {
   const { title, ingredients, instructions, imageUrl } = req.body;
   try {
@@ -120,7 +124,6 @@ app.post('/api/recipes', async (req: any, res: any) => {
   }
 });
 
-// Update an existing recipe
 app.put('/api/recipes/:id', async (req: any, res: any) => {
   const { title, ingredients, instructions, imageUrl } = req.body;
   try {
@@ -135,13 +138,33 @@ app.put('/api/recipes/:id', async (req: any, res: any) => {
   }
 });
 
-// Delete a recipe
 app.delete('/api/recipes/:id', async (req: any, res: any) => {
   try {
     await Recipe.findByIdAndDelete(req.params.id);
     res.json({ message: 'Recipe deleted successfully' });
   } catch (error) {
     res.status(500).json({ message: 'Error deleting recipe', error });
+  }
+});
+
+// Book Routes
+app.get('/api/books', async (req: any, res: any) => {
+  try {
+    const books = await Book.find();
+    res.json(books);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching books', error });
+  }
+});
+
+app.post('/api/books', async (req: any, res: any) => {
+  const { title, author } = req.body;
+  try {
+    const newBook = new Book({ title, author });
+    await newBook.save();
+    res.status(201).json({ message: 'Book added successfully', newBook });
+  } catch (error) {
+    res.status(500).json({ message: 'Error adding book', error });
   }
 });
 
