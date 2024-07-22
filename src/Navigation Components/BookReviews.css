@@ -1,3 +1,4 @@
+/* BookReviews.css */
 .container {
   padding: 20px;
 }
@@ -24,11 +25,13 @@
 .book-title {
   font-size: 16px;
   font-weight: bold;
+  text-align: center;
 }
 
 .book-author {
   font-size: 14px;
   color: #555;
+  text-align: center;
 }
 
 .add-book-form {
@@ -36,4 +39,21 @@
   display: flex;
   gap: 10px;
   justify-content: center;
+}
+
+.reviews {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.review {
+  padding: 15px;
+}
+
+.add-review-form {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
 }

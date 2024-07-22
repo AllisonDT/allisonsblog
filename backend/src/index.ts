@@ -43,9 +43,16 @@ const recipeSchema = new mongoose.Schema({
 
 const Recipe = mongoose.model('Recipe', recipeSchema);
 
+const reviewSchema = new mongoose.Schema({
+  reviewer: { type: String, required: true },
+  comment: { type: String, required: true },
+  createdAt: { type: Date, default: Date.now },
+});
+
 const bookSchema = new mongoose.Schema({
   title: { type: String, required: true },
   author: { type: String, required: true },
+  reviews: [reviewSchema],
   createdAt: { type: Date, default: Date.now },
 });
 
@@ -157,6 +164,19 @@ app.get('/api/books', async (req: any, res: any) => {
   }
 });
 
+app.get('/api/books/:title/reviews', async (req: any, res: any) => {
+  try {
+    const book = await Book.findOne({ title: req.params.title });
+    if (book) {
+      res.json(book.reviews);
+    } else {
+      res.status(404).json({ message: 'Book not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching reviews', error });
+  }
+});
+
 app.post('/api/books', async (req: any, res: any) => {
   const { title, author } = req.body;
   try {
@@ -165,6 +185,23 @@ app.post('/api/books', async (req: any, res: any) => {
     res.status(201).json({ message: 'Book added successfully', newBook });
   } catch (error) {
     res.status(500).json({ message: 'Error adding book', error });
+  }
+});
+
+app.post('/api/books/:title/reviews', async (req: any, res: any) => {
+  const { reviewer, comment } = req.body;
+  try {
+    const book = await Book.findOne({ title: req.params.title });
+    if (book) {
+      const newReview = { reviewer, comment };
+      book.reviews.push(newReview);
+      await book.save();
+      res.status(201).json({ message: 'Review added successfully', newReview });
+    } else {
+      res.status(404).json({ message: 'Book not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'Error adding review', error });
   }
 });
 
