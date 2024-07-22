@@ -4,6 +4,8 @@ import './BookReviews.css';
 import { Typography, TextField, Button } from '@mui/material';
 import axios from 'axios';
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 interface Book {
   title: string;
   author: string;
@@ -14,28 +16,34 @@ const BookReviews: React.FC = () => {
   const [hovered, setHovered] = useState<number | null>(null);
   const [newBook, setNewBook] = useState<Book>({ title: '', author: '' });
 
+  const fetchBooks = async () => {
+    try {
+      const response = await axios.get(`${API_BASE_URL}/api/books`);
+      setBooks(response.data);
+    } catch (error) {
+      console.error('Error fetching books:', error);
+    }
+  };
+
   useEffect(() => {
-    axios.get('/api/books')
-      .then(response => setBooks(response.data))
-      .catch(error => console.error('Error fetching books:', error));
+    fetchBooks();
   }, []);
 
-  const handleAddBook = () => {
-    axios.post('/api/books', newBook)
-      .then(response => {
-        setBooks([...books, response.data.newBook]);
-        setNewBook({ title: '', author: '' });
-      })
-      .catch(error => console.error('Error adding book:', error));
+  const handleAddBook = async () => {
+    try {
+      const response = await axios.post(`${API_BASE_URL}/api/books`, newBook);
+      setBooks((prevBooks) => [...prevBooks, response.data.newBook]);
+      setNewBook({ title: '', author: '' });
+    } catch (error) {
+      console.error('Error adding book:', error);
+    }
   };
 
   const springProps = useMemo(() => {
-    return books.map((book, index) => {
-      return {
-        transform: hovered === index ? 'translateY(-10px)' : 'translateY(0px)',
-        config: { tension: 300, friction: 10 },
-      };
-    });
+    return books.map((book, index) => ({
+      transform: hovered === index ? 'translateY(-10px)' : 'translateY(0px)',
+      config: { tension: 300, friction: 10 },
+    }));
   }, [books, hovered]);
 
   const springs = useSprings(books.length, springProps);
